@@ -12,8 +12,10 @@ main :: IO ()
 main = runCurses $ do
     setEcho False
     w <- defaultWindow
+    col <- newColorID ColorRed ColorBlack 1
     updateWindow w $ do
         moveCursor 1 10
+        setColor col
         drawString "Hello world!"
         moveCursor 3 10
         drawString "(press q to quit)"
