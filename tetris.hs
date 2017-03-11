@@ -1,7 +1,8 @@
-import Data.List
 import System.IO
-import Control.Monad
+import Tetromino
 import UI.NCurses
+import Data.List
+import Control.Monad
 
 -- data Yolo = Yolo {swag :: Int, hype :: String} deriving (Show)
 -- 
@@ -30,3 +31,4 @@ waitFor w p = loop where
         case ev of
             Nothing -> loop
             Just ev' -> if p ev' then return () else loop
+
