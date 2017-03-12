@@ -1,12 +1,11 @@
 
 module Tetromino
     (
-        SquareType
-        , TetrominoType
+        SquareType(..)
+        , TetrominoType(..)
         , squareToChar
     ) where
         
-import UI.NCurses
 import Data.List
 import Control.Monad
 
@@ -30,7 +29,13 @@ data TetrominoType
     | TetrominoS
     | TetrominoT
     | TetrominoZ
+    | TetrominoNone
     deriving (Show, Eq)
+
+data Tetromino =
+    Tetromino { tetrominoType :: TetrominoType
+              , squares :: [[SquareType]]
+              }
 
 squareToChar :: SquareType -> Char
 squareToChar x = case x of
