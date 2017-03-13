@@ -33,8 +33,10 @@ data TetrominoType
     deriving (Show, Eq)
 
 data Tetromino =
-    Tetromino { tetrominoType :: TetrominoType
-              , squares :: [[SquareType]]
+    Tetromino { tetrominoType ::    TetrominoType
+              , squares ::          [[SquareType]]
+              , x ::                Int
+              , y ::                Int
               }
 
 squareToChar :: SquareType -> Char

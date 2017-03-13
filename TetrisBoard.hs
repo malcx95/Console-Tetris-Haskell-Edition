@@ -12,6 +12,7 @@ generateEmptyBoard rows cols =
         centerRow = [SquareEmpty] ++ centerRow
         row = [SquareOut] ++ (take (cols - 2) centerRow) ++ [SquareOut]
         col = [row] ++ col
+        bottom = [SquareOut] ++ bottom
     in
-        take rows col
+        (take (rows - 1) col) ++ [(take cols bottom)]
 
