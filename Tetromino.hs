@@ -3,94 +3,105 @@ module Tetromino
     (
         SquareType(..)
         , TetrominoType(..)
+        , tetrominoSize
         , squareToChar
     ) where
         
 import Data.List
 import Control.Monad
 
+tetrominoSize :: Int
+tetrominoSize = 8
+
+iBody :: [[Char]]
 iBody =
         [
-            ["eeeeeeee"]
-          , ["eeeeeeee"]
-          , ["IIIIIIII"]
-          , ["IIIIIIII"]
-          , ["eeeeeeee"]
-          , ["eeeeeeee"]
-          , ["eeeeeeee"]
-          , ["eeeeeeee"]
+            ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I']
+          , ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
         ]
 
+lBody :: [[Char]]
 lBody =
         [
-            ["eeeeeeee"]
-          , ["eeeeeeee"]
-          , ["LLLLLLee"]
-          , ["LLLLLLee"]
-          , ["LLeeeeee"]
-          , ["LLeeeeee"]
-          , ["eeeeeeee"]
-          , ["eeeeeeee"]
+            ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['L', 'L', 'L', 'L', 'L', 'L', 'e', 'e']
+          , ['L', 'L', 'L', 'L', 'L', 'L', 'e', 'e']
+          , ['L', 'L', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['L', 'L', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
         ]
 
+jBody :: [[Char]]
 jBody =
         [
-            ["eeeeeeee"]
-          , ["eeeeeeee"]
-          , ["eeJJJJJJ"]
-          , ["eeJJJJJJ"]
-          , ["eeeeeeJJ"]
-          , ["eeeeeeJJ"]
-          , ["eeeeeeee"]
-          , ["eeeeeeee"]
+            ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'J', 'J', 'J', 'J', 'J', 'J']
+          , ['e', 'e', 'J', 'J', 'J', 'J', 'J', 'J']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'J', 'J']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'J', 'J']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
         ]
 
+oBody :: [[Char]]
 oBody =
         [
-            ["eeeeeeee"]
-          , ["eeeeeeee"]
-          , ["eeOOOOee"]
-          , ["eeOOOOee"]
-          , ["eeOOOOee"]
-          , ["eeOOOOee"]
-          , ["eeeeeeee"]
-          , ["eeeeeeee"]
+            ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'O', 'O', 'O', 'O', 'e', 'e']
+          , ['e', 'e', 'O', 'O', 'O', 'O', 'e', 'e']
+          , ['e', 'e', 'O', 'O', 'O', 'O', 'e', 'e']
+          , ['e', 'e', 'O', 'O', 'O', 'O', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
         ]
 
+sBody :: [[Char]]
 sBody =
         [
-            ["eeeeeeee"]
-          , ["eeeeeeee"]
-          , ["eeeeSSSS"]
-          , ["eeeeSSSS"]
-          , ["eeSSSSee"]
-          , ["eeSSSSee"]
-          , ["eeeeeeee"]
-          , ["eeeeeeee"]
+            ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'S', 'S', 'S', 'S']
+          , ['e', 'e', 'e', 'e', 'S', 'S', 'S', 'S']
+          , ['e', 'e', 'S', 'S', 'S', 'S', 'e', 'e']
+          , ['e', 'e', 'S', 'S', 'S', 'S', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
         ]
 
+tBody :: [[Char]]
 tBody =
         [
-            ["eeeeeeee"]
-          , ["eeeeeeee"]
-          , ["eeTTTTTT"]
-          , ["eeTTTTTT"]
-          , ["eeeeTTee"]
-          , ["eeeeTTee"]
-          , ["eeeeeeee"]
-          , ["eeeeeeee"]
+            ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'T', 'T', 'T', 'T', 'T', 'T']
+          , ['e', 'e', 'T', 'T', 'T', 'T', 'T', 'T']
+          , ['e', 'e', 'e', 'e', 'T', 'T', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'T', 'T', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
         ]
 
+zBody :: [[Char]]
 zBody =
         [
-            ["eeeeeeee"]
-          , ["eeeeeeee"]
-          , ["ZZZZeeee"]
-          , ["ZZZZeeee"]
-          , ["eeZZZZee"]
-          , ["eeZZZZee"]
-          , ["eeeeeeee"]
-          , ["eeeeeeee"]
+            ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['Z', 'Z', 'Z', 'Z', 'e', 'e', 'e', 'e']
+          , ['Z', 'Z', 'Z', 'Z', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'Z', 'Z', 'Z', 'Z', 'e', 'e']
+          , ['e', 'e', 'Z', 'Z', 'Z', 'Z', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
+          , ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e']
         ]
 
 data SquareType 
@@ -122,6 +133,7 @@ data Tetromino =
               , x ::                Int
               , y ::                Int
               }
+    deriving Show
 
 charToSquare :: Char -> SquareType
 charToSquare c =
@@ -137,16 +149,8 @@ charToSquare c =
         'Z' -> SquareZ      
 
 bodyToSquares :: [[Char]] -> [[SquareType]]
-bodyToSquares (x:xs) =
-    let
-        row = map charToSquare (x !! 0)
-    in
-        row ++ bodyToSquares xs
-
-
--- createTetromino :: Int -- random number between 0-6
---                 -> Tetromino
-                
+bodyToSquares =
+    map $ map charToSquare 
 
 squareToChar :: SquareType -> Char
 squareToChar x = case x of
@@ -159,4 +163,14 @@ squareToChar x = case x of
                    SquareS      -> 'S'
                    SquareT      -> 'T'
                    SquareZ      -> 'Z'
+
+createTetromino :: Int -- random number (0-6)
+                -> Tetromino
+createTetromino 0 = Tetromino {tetrominoType=TetrominoI, squares=bodyToSquares iBody, x=0, y=0}
+createTetromino 1 = Tetromino {tetrominoType=TetrominoL, squares=bodyToSquares lBody, x=0, y=0}
+createTetromino 2 = Tetromino {tetrominoType=TetrominoJ, squares=bodyToSquares jBody, x=0, y=0}
+createTetromino 3 = Tetromino {tetrominoType=TetrominoO, squares=bodyToSquares oBody, x=0, y=0}
+createTetromino 4 = Tetromino {tetrominoType=TetrominoS, squares=bodyToSquares sBody, x=0, y=0}
+createTetromino 5 = Tetromino {tetrominoType=TetrominoT, squares=bodyToSquares tBody, x=0, y=0}
+createTetromino 6 = Tetromino {tetrominoType=TetrominoZ, squares=bodyToSquares zBody, x=0, y=0}
 
