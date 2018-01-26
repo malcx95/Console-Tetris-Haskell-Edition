@@ -3,6 +3,7 @@ module Tetromino
     (
         SquareType(..)
         , TetrominoType(..)
+        , Tetromino(..)
         , tetrominoSize
         , squareToChar
     ) where
